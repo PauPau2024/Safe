@@ -334,11 +334,11 @@ def send_attendance(auth_token, course_code, image_path, mac_address, imei, wifi
     
     # **Ensure "/" is not escaped**
     json_data = json_data.replace("\\\\", "\\")  # Fix double backslashes
-    print(json_data)
     # **Send POST Request Using `data=` Instead of `json=`**
     try:
         response = requests.post(api_url, data=json_data.encode('utf-8'), headers=headers)  
         response.raise_for_status()  # Raise error for failed responses
+        print(response.json())
         return response.json()  # Return the API response
     except requests.exceptions.RequestException as e:
         return {"error": str(e)}  # Return error message in case of failure
